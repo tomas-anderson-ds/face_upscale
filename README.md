@@ -20,7 +20,6 @@
 
 Слева фото размером 256х256 увеличенное из картинки размером 128х128 пикселей методом BICUBIC, справа с помощью нейросети.
 
-
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result6.png" width="512" height="256">
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result5.png" width="512" height="256">
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result4.png" width="512" height="256">
