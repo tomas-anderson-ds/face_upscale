@@ -35,7 +35,7 @@
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result0.png" width="512" height="256">
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result7.png" width="512" height="256">
 
-### Результат инференса модели --dim 256
+### Результат инференса модели --dim 256, 100 эпох, PSNR: 36.170
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result0_2.png" width="512" height="256">
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result6_2.png" width="512" height="256">
 <img src="https://github.com/tomas-anderson-ds/face_upscale/blob/main/images/result5_2.png" width="512" height="256">
