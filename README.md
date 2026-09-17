@@ -1,11 +1,12 @@
 # face_upscale
-Лёгкая трансформерная сеть для апскейла x2
+Лёгкая и быстрая трансформерная сеть для апскейла x2
 
 ### Инференс
 
 ```sh
     python test.py --image images/image_000000197.jpg --weights checkpoint/last.pth --output result.png
 ```
+Время инференса на GPU RTX 5060 в среднем составляет 0.07 секунды
 
 ### Тренировка
 
