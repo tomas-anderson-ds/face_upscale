@@ -90,7 +90,7 @@ def main():
 
     image = Image.open(args.image).convert("RGB")
         
-    image = image.resize((lr_size, lr_size), Image.Resampling.LANCZOS)
+    image = image.resize((lr_size, lr_size), Image.Resampling.BICUBIC)
  
     image_256 = image.resize((lr_size * 2, lr_size * 2), args.resize_type)
 
