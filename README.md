@@ -1,11 +1,18 @@
 # face_upscale
 Лёгкая трансформерная сеть для апскейла x2
 
-### Использование
+### Инференс
 
 ```sh
     python test.py --image images/image_000000197.jpg --weights checkpoint/last.pth --output result.png
 ```
+
+### Тренировка
+
+```sh
+    python train.py --data_dir "папка с изображениями" --lr 0.001 --w_perceptual 0.1 --w_fft 0.1 --output_dir checkpoint --batch_size 4 --num_workers 4 --dim 64 --depth 8 --heads 8 --window 8
+```
+
 Слева фото размером 256х256 увеличенное из картинки размером 128х128 пикселей методом BICUBIC, справа с помощью нейросети.
 
 
