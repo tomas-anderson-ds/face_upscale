@@ -162,7 +162,7 @@ class SRDataset(Dataset):
         img_hr = Image.open(self.image_paths[idx]).convert("RGB")
                 
         if self.train:
-            rnd = random.randint(0, 128)
+            rnd = random.randint(0, 256)
             area = (rnd, rnd, 1024 - rnd, 1024 - rnd)
             img_hr = img_hr.crop(area)                    
             img_hr = img_hr.resize((self.hr_size, self.hr_size), Image.Resampling.BICUBIC)
@@ -183,33 +183,41 @@ class SRDataset(Dataset):
                 rnd_x = random.randint(-self.hr_size // 4, self.hr_size // 4)
                 rnd_y = random.randint(-self.hr_size // 4, self.hr_size // 4)                                          
                 img_hr = ImageChops.offset(img_hr, xoffset=rnd_x, yoffset=rnd_y) 
-           
-            degradation_type = random.randint(0, 4)
+
+            
+            resampling_mode = random.randint(0, 5)          
+            degradation_type = random.randint(0, 5)
             
             if degradation_type == 0:
-                img_lr = img_hr.resize((self.lr_size, self.lr_size), Image.Resampling.BICUBIC)
+                img_lr = img_hr.resize((self.lr_size, self.lr_size), resampling_mode)
                 buffer = io.BytesIO()    
-                img_lr.save(buffer, format="JPEG", quality=random.randint(10, 90), optimize=True)    
+                img_lr.save(buffer, format="JPEG", quality=random.randint(10, 70), optimize=True)    
                 buffer.seek(0)
                 img_lr = Image.open(buffer)
                 img_lr.load()
     
             elif degradation_type == 1:
-                img_lr = img_hr.resize((self.lr_size, self.lr_size), Image.Resampling.BICUBIC)
+                img_lr = img_hr.resize((self.lr_size, self.lr_size), resampling_mode)
                 img_lr = img_lr.filter(ImageFilter.GaussianBlur(radius=random.uniform(0.5, 1.5)))
                 
             elif degradation_type == 2:        
                 intermediate_size = random.randint(self.lr_size // 2, self.lr_size)            
-                img_lr = img_hr.resize((intermediate_size, intermediate_size), Image.Resampling.BICUBIC)        
+                img_lr = img_hr.resize((intermediate_size, intermediate_size), resampling_mode)        
+                img_lr = img_lr.resize((self.lr_size, self.lr_size), resampling_mode)
+
+            elif degradation_type == 3:        
+                intermediate_size = random.randint(self.lr_size // 2, self.lr_size)            
+                img_lr = img_hr.resize((intermediate_size, intermediate_size), resampling_mode)        
                 img_lr = img_lr.resize((self.lr_size, self.lr_size), Image.Resampling.BICUBIC)
                 
-            elif degradation_type == 3:
-                img_lr = img_hr.resize((self.lr_size, self.lr_size), Image.Resampling.BICUBIC)
+            elif degradation_type == 4:
+                img_lr = img_hr.resize((self.lr_size, self.lr_size), resampling_mode)
                 noise = Image.effect_noise((self.lr_size, self.lr_size), sigma=random.randint(10, 50)).convert("RGB")
                 img_lr = Image.blend(img_lr, noise, alpha=random.uniform(0.1, 0.2))
                 
-            elif degradation_type == 4:       
-                img_lr = img_hr.resize((self.lr_size, self.lr_size), Image.Resampling.BICUBIC)
+            elif degradation_type == 5:       
+                img_lr = img_hr.resize((self.lr_size, self.lr_size), resampling_mode)     
+                
         else:
             img_hr = img_hr.resize((self.hr_size, self.hr_size), Image.Resampling.BICUBIC)
             img_lr = img_hr.resize((self.lr_size, self.lr_size), Image.Resampling.BICUBIC) 
